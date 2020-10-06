@@ -1,7 +1,7 @@
-package com.example.walletapp.repository
+package com.example.walletapp.data.repository.category
 
-import com.example.walletapp.database.dao.CategoryDao
-import com.example.walletapp.database.entity.Category
+import com.example.walletapp.data.database.dao.CategoryDao
+import com.example.walletapp.data.database.entity.Category
 
 class CategoryRepository(private val categoryDao: CategoryDao) {
 
