@@ -7,17 +7,12 @@ import java.util.*
 
 @Entity(tableName = "Payment")
 data class Payment(
-    @ColumnInfo(name = "CategoryId")
-    val category: Int,
-    @ColumnInfo(name = "PaymentName")
-    val name: String,
-    @ColumnInfo(name = "PaymentAmount")
-    val amount: Float,
-    @ColumnInfo(name = "IsRecurrent")
-    val recurrent: Boolean
+    @ColumnInfo(name = "CategoryId") val category: Int,
+    @ColumnInfo(name = "PaymentName") val name: String,
+    @ColumnInfo(name = "PaymentAmount") val amount: Float,
+    @ColumnInfo(name = "IsRecurrent") val recurrent: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "PaymentId")
-    var id: Int = 0
-    var date: Date = Date()
+    @ColumnInfo(name = "PaymentId") var id: Int = 0
+    @ColumnInfo(name = "CreatedAt") var date: Date = Date()
 }

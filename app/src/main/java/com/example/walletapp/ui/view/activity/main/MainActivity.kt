@@ -8,19 +8,11 @@ import com.example.walletapp.R
 import com.example.walletapp.data.database.entity.Category
 import com.example.walletapp.ui.viewmodel.category.CategoryViewModel
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
-
-    private val categoryViewModel : CategoryViewModel by viewModels()
-    private var counter = 0
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-    }
-
-    override fun onClick(view: View?) {
-        categoryViewModel.insert(Category("Hola $counter"))
-        counter++
     }
 }
