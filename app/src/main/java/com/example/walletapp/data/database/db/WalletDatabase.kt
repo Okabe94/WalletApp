@@ -1,15 +1,15 @@
-package com.example.walletapp.database.db
+package com.example.walletapp.data.database.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.walletapp.database.converter.Converters
-import com.example.walletapp.database.dao.CategoryDao
-import com.example.walletapp.database.dao.PaymentDao
-import com.example.walletapp.database.entity.Category
-import com.example.walletapp.database.entity.Payment
+import com.example.walletapp.data.database.converter.Converters
+import com.example.walletapp.data.database.dao.CategoryDao
+import com.example.walletapp.data.database.dao.PaymentDao
+import com.example.walletapp.data.database.entity.Category
+import com.example.walletapp.data.database.entity.Payment
 
 private const val DATABASE_NAME = "Database"
 

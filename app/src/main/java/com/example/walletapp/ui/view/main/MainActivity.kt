@@ -1,12 +1,12 @@
-package com.example.walletapp.view.main
+package com.example.walletapp.ui.view.main
 
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.walletapp.R
-import com.example.walletapp.database.entity.Category
-import com.example.walletapp.viewmodel.CategoryViewModel
+import com.example.walletapp.data.database.entity.Category
+import com.example.walletapp.ui.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {

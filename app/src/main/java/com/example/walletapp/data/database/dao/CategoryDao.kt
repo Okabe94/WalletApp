@@ -1,10 +1,10 @@
-package com.example.walletapp.database.dao
+package com.example.walletapp.data.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.walletapp.database.entity.Category
+import com.example.walletapp.data.database.entity.Category
 
 @Dao
 interface CategoryDao {

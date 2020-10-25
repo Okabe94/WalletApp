@@ -1,4 +1,4 @@
-package com.example.walletapp.database.converter
+package com.example.walletapp.data.database.converter
 
 import androidx.room.TypeConverter
 import java.util.*
