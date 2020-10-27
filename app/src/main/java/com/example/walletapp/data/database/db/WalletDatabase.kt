@@ -13,7 +13,7 @@ import com.example.walletapp.data.database.entity.Payment
 
 private const val DATABASE_NAME = "Database"
 
-@Database(entities = [Payment::class, Category::class], version = 1)
+@Database(entities = [Payment::class, Category::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class WalletDatabase : RoomDatabase() {
 
@@ -29,7 +29,7 @@ abstract class WalletDatabase : RoomDatabase() {
                     context,
                     WalletDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).fallbackToDestructiveMigration().build()
             }
             return INSTANCE as WalletDatabase
         }

@@ -5,9 +5,10 @@ import com.example.walletapp.data.database.entity.Category
 
 class CategoryRepository(private val categoryDao: CategoryDao) {
 
-    val liveCategories = categoryDao.getCategories()
+    fun getPagedCategories() = categoryDao.getPagedCategories()
 
     suspend fun insert(category: Category) {
         categoryDao.insert(category)
     }
+
 }
