@@ -15,7 +15,7 @@ class CategoryAdapter : PagingDataAdapter<Category, CategoryViewHolder>(COMPARAT
                 oldItem == newItem
 
             override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean =
-                oldItem.name == newItem.name
+                oldItem.id == newItem.id
         }
     }
 

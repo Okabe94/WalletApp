@@ -12,6 +12,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category")
     fun getPagedCategories() : PagingSource<Int, Category>
 
+    @Query("SELECT * FROM Category WHERE CategoryName LIKE '%' || :filter || '%'")
+    fun getFilteredPagedCategories(filter: String) : PagingSource<Int, Category>
+
     @Insert
     suspend fun insert(category: Category)
 

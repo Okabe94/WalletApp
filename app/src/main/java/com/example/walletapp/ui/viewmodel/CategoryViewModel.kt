@@ -12,6 +12,7 @@ import androidx.paging.map
 import com.example.walletapp.data.database.db.WalletDatabase
 import com.example.walletapp.data.database.entity.Category
 import com.example.walletapp.data.repository.CategoryRepository
+import com.example.walletapp.utils.pager.PagingSourceProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
@@ -24,21 +25,10 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     private val categoryRepository =
         CategoryRepository(WalletDatabase.getInstance(application).categoryDao())
 
-    private val pagerConfig = PagingConfig(
-        pageSize = 5,
-        initialLoadSize = 5,
-        enablePlaceholders = false
-    )
-
-    val categoryPager = Pager(pagerConfig) {
-        categoryRepository.getPagedCategories()
-    }.flow
+    fun updateList(word: String? = null) =
+        PagingSourceProvider.get(categoryRepository.getPagedCategories(word))
 
     fun insert(category: Category) = viewModelScope.launch(Dispatchers.IO) {
         categoryRepository.insert(category)
-    }
-
-    fun filter(word: String) = categoryPager.map { list ->
-        list.filter { it.name.contains(word, true) }
     }
 }

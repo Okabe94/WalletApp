@@ -15,13 +15,14 @@ import com.example.walletapp.R
 import com.example.walletapp.data.database.entity.Category
 import com.example.walletapp.ui.adapter.CategoryAdapter
 import com.example.walletapp.ui.viewmodel.CategoryViewModel
+import com.example.walletapp.utils.textwatcher.TextWatcherImpl
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class CategoryFragment : Fragment(), TextWatcher {
+class CategoryFragment : Fragment() {
 
     var counter = 0
     private val categoryAdapter = CategoryAdapter()
@@ -38,19 +39,23 @@ class CategoryFragment : Fragment(), TextWatcher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvEdit.addTextChangedListener(this)
+        tvEdit.addTextChangedListener(object : TextWatcherImpl() {
+            override fun afterTextChanged(s: Editable?) {
+                s?.toString()?.let { word -> updateList(viewModel.updateList(word)) }
+            }
+        })
 
         rvCategories.apply {
             adapter = categoryAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
-        updateList(viewModel.categoryPager)
-
         add.setOnClickListener {
             counter++
             viewModel.insert(Category("Perito $counter"))
         }
+
+        updateList(viewModel.updateList())
     }
 
     private fun updateList(categoryFlow: Flow<PagingData<Category>>) {
@@ -58,13 +63,5 @@ class CategoryFragment : Fragment(), TextWatcher {
             categoryFlow.collectLatest { categoryAdapter.submitData(it) }
         }
     }
-
-    override fun afterTextChanged(s: Editable?) {
-        s?.toString()?.let { word -> updateList(viewModel.filter(word)) }
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
 }
