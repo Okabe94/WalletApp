@@ -1,33 +1,30 @@
 package com.example.walletapp.ui.adapter
 
-import android.util.Log
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.walletapp.data.database.entity.Category
 import com.example.walletapp.ui.adapter.viewholder.CategoryViewHolder
 
-class CategoryAdapter : PagingDataAdapter<Category, CategoryViewHolder>(COMPARATOR) {
+class CategoryAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
 
-    companion object {
-        val COMPARATOR = object : DiffUtil.ItemCallback<Category>() {
-            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean =
-                oldItem == newItem
+    private val list = mutableListOf<Category>()
 
-            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean =
-                oldItem.id == newItem.id
-        }
-    }
+    override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(list[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        return CategoryViewHolder.create(parent, ::listener)
+        return CategoryViewHolder.create(parent)
     }
 
-    private fun listener(position: Int) {
-        getItem(position)?.name?.let { Log.d("Position", it) }
+    fun updateList(newList: List<Category>) {
+        list.apply {
+            clear()
+            addAll(newList)
+        }
+        notifyDataSetChanged()
     }
+
 }

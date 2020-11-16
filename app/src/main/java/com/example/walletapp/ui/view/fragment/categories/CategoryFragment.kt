@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.walletapp.R
 import com.example.walletapp.data.database.entity.Category
@@ -15,8 +13,6 @@ import com.example.walletapp.ui.adapter.CategoryAdapter
 import com.example.walletapp.ui.viewmodel.CategoryViewModel
 import com.example.walletapp.utils.querylistener.QueryListenerImpl
 import kotlinx.android.synthetic.main.fragment_categories.*
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class CategoryFragment : Fragment() {
 
@@ -35,14 +31,15 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
-        updateList()
+        viewModel.liveCategories.observe(viewLifecycleOwner) { list ->
+            list?.let {
+                categoryAdapter.updateList(it)
+                displayEmptyState(it.isEmpty())
+            }
+        }
     }
 
     private fun setupListeners() {
-        categoryAdapter.addLoadStateListener {
-            displayEmptyState(categoryAdapter.itemCount == 0)
-        }
-
         rvCategories.apply {
             adapter = categoryAdapter
             layoutManager = LinearLayoutManager(context)
@@ -50,7 +47,7 @@ class CategoryFragment : Fragment() {
 
         svFilter.setOnQueryTextListener(object : QueryListenerImpl() {
             override fun onQueryTextChange(newText: String?): Boolean {
-                updateList(newText)
+                viewModel.filter(newText)
                 return true
             }
         })
@@ -58,14 +55,6 @@ class CategoryFragment : Fragment() {
         add.setOnClickListener {
             counter++
             viewModel.insert(Category("Perito $counter"))
-        }
-    }
-
-    private fun updateList(word: String? = null) {
-        lifecycleScope.launch {
-            viewModel.updateList(word).collectLatest {
-                categoryAdapter.submitData(it)
-            }
         }
     }
 

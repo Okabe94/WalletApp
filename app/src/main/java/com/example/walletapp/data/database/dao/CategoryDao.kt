@@ -1,5 +1,6 @@
 package com.example.walletapp.data.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,10 +11,10 @@ import com.example.walletapp.data.database.entity.Category
 interface CategoryDao {
 
     @Query("SELECT * FROM category")
-    fun getPagedCategories() : PagingSource<Int, Category>
+    fun getCategories() : LiveData<List<Category>>
 
     @Query("SELECT * FROM Category WHERE CategoryName LIKE '%' || :filter || '%'")
-    fun getFilteredPagedCategories(filter: String) : PagingSource<Int, Category>
+    fun getFilteredCategories(filter: String) : LiveData<List<Category>>
 
     @Insert
     suspend fun insert(category: Category)

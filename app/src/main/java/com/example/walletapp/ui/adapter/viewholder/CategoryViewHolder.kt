@@ -11,21 +11,16 @@ import kotlinx.android.synthetic.main.list_item_category.view.*
 
 class CategoryViewHolder private constructor(
     itemView: View,
-    private val listener: (Int) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
 
     private val tvName: TextView = itemView.tvCategoryName
     private val tvDate: TextView = itemView.tvCategoryDate
 
-    init {
-        itemView.setOnClickListener { listener(bindingAdapterPosition) }
-    }
-
     companion object {
-        fun create(parent: ViewGroup, listener: (Int) -> Unit): CategoryViewHolder {
+        fun create(parent: ViewGroup): CategoryViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_category, parent, false)
-            return CategoryViewHolder(view, listener)
+            return CategoryViewHolder(view)
         }
     }
 
