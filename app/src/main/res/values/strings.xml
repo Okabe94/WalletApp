@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WalletApp</string>
+    <string name="search_edit_text_hint">Buscar...</string>
+    <string name="content_description_add_category">Add category</string>
+    <string name="empty_state_category_title">La categoría que buscas no existe</string>
+    <string name="empty_state_category_subtitle">Puedes crearla haciendo click\nen el botón de abajo</string>
 </resources>
